@@ -1,0 +1,22 @@
+.myerror
+{
+    color: red;
+}
+.add_icon
+{
+    margin-left: 10px;
+    width: 40px;
+    background-color:#4e73df;
+    display: block;
+    text-align: center;
+    border: 1px solid #4e73df;
+    border-radius: 5px;
+}
+.add_icon i{
+    color:#fff;
+    font-size: 20px;
+}
+.users_heading
+{
+    display: flex;
+}

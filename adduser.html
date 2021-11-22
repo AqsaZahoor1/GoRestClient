@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head id="head">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="topbar">
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Add New User </h1>
+                    <p class="mb-4"> </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Listing</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" id="load">
+
+
+                                <form>
+                                    <!-- Name -->
+                                    <div class="mb-3">
+                                        <label for="Name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp"
+                                            pattern="[a-zA-Z][a-zA-Z ]{3,}">
+                                        <div id="nameError" class="form-text myerror"></div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="mb-3">
+                                        <label for="Email" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" id="email" required
+                                            aria-describedby="emailHelp">
+                                        <div id="emailError" class="form-text myerror"></div>
+                                    </div>
+
+                                    <div>
+                                        <label for="Gender" class="form-label">Gender</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gender" id="male"
+                                            value="male" checked>
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Male
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="gender" id="female"
+                                            value="female">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Female
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        <label for="Status" class="form-label">Status</label>
+                                        <select class="form-select" aria-label="Default select example" id="status">
+                                            <option value="0" disabled selected>Choose...</option>
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
+                                        <div id="statusError" class="form-text myerror"></div>
+                                    </div>
+
+
+
+
+                                    <button type="submit" onclick="onValidateForm()"
+                                        class="btn btn-primary">Save</button>
+                                </form>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+
+    </div>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+
+
+</body>
+
+
+
+
+
+
+
+<script>
+    // Include Files
+    $(function () {
+        $("#head").load("header.html");
+        $("#accordionSidebar").load("sidebar.html");
+
+        $("#logoutModal").load("logout.html");
+
+    });
+</script>
+
+
+
+
+<script>
+    const onValidateForm = () => {
+
+        event.preventDefault();
+
+        //regex
+        var regName = new RegExp("^([a-zA-Z ]{3,200})$");
+        var regEmail = new RegExp("^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$");
+        
+
+        //input fields
+        let user_name = document.getElementById("name").value;
+        let user_email = document.getElementById("email").value;
+        let user_gender = $("input[type='radio'][name='gender']:checked").val();
+        let user_status = document.getElementById("status").value;
+
+        //error fields
+        let nameError = document.getElementById("nameError").value ="";
+        let emailError = document.getElementById("emailError").value = "";
+        let statusError = document.getElementById("statusError").value = "";
+
+
+        // For name validation
+        let flag = 0;
+        if (user_name == "") {
+            document.getElementById("nameError").innerHTML = "name in required*";
+            flag = 1;
+        }
+        else {
+            console.log(user_name.length);
+
+            if (user_name.length > 200) {
+                document.getElementById("nameError").innerHTML = "maximum 200 characters allowed";
+                flag = 1;
+            }
+            else {
+
+                if (regName.test(user_name)) {
+                    document.getElementById("nameError").innerHTML = "";
+                } else {
+                    document.getElementById("nameError").innerHTML = "enter valid name";
+                    flag = 1;
+                }
+            }
+        }
+
+
+        if (user_email == "") {
+            document.getElementById("emailError").innerHTML = "email is required*";
+            flag = 1;
+        }
+        else {
+            if (regEmail.test(user_email)) {
+                document.getElementById("emailError").innerHTML = "";
+                } else {
+                    document.getElementById("emailError").innerHTML = "enter valid email";
+                    flag = 1;
+                }
+        }
+
+
+
+        if (user_status == "0") {
+            document.getElementById("statusError").innerHTML = "status is required*";
+            flag = 1;
+        }
+
+        if(flag === 0)
+        {
+            addUsers(user_name , user_email , user_gender , user_status);
+        }
+        else{
+            alert("re enter values");
+        }
+       
+
+
+
+
+
+
+        console.log(user_name);
+        console.log(user_email);
+        console.log(user_gender);
+        console.log(user_status);
+
+    }
+</script>
+<script src="script.js"></script>
+</html>
