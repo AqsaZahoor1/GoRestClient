@@ -15,6 +15,6 @@
 //   { $('#dataTable').DataTable(); }, 3000);
 // });
 
-const callFilterTable = ()=>{
-  $('#dataTable').DataTable();
-}
+// const callFilterTable = ()=>{
+//   $('#dataTable').DataTable();
+// }

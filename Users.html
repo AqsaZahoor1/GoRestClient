@@ -23,6 +23,8 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
    
 
 </head>
@@ -429,3 +431,36 @@
 </body>
 
 </html>
+
+
+
+<!-- <script>
+    var crypt = {
+        secret: "THESECRET",
+        encrypt : function (clear) {
+
+            var cipher = CryptoJS.AES.encrypt(clear , crypt.secret);
+            cipher = cipher.toString();
+            return cipher;
+            
+        },
+        decrypt : function (cipher) {
+
+            var decipher = CryptoJS.AES.decrypt(cipher , crypt.secret);
+            decipher = decipher.toString(CryptoJS.enc.Utf8);
+            return decipher;
+            
+        }
+
+
+    };
+     
+    var cipher = crypt.encrypt("BOOM");
+    console.log(cipher);
+    var decipher = crypt.decrypt(cipher);
+    console.log(decipher);
+</script> -->
+
+<!-- <script>
+  console.log(sha256("1234"));
+</script> -->

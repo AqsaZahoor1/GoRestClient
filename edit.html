@@ -1,13 +1,29 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head id="head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Tables</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -52,14 +68,14 @@
                                     <div class="mb-3">
                                         <label for="Name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" aria-describedby="nameHelp"
-                                            pattern="[a-zA-Z][a-zA-Z ]{3,}" >
+                                            pattern="[a-zA-Z][a-zA-Z ]{3,}">
                                         <div id="nameError" class="form-text myerror"></div>
                                     </div>
 
                                     <!-- Email -->
                                     <div class="mb-3">
                                         <label for="Email" class="form-label">Email address</label>
-                                        <input type="email" class="form-control" id="email" required 
+                                        <input type="email" class="form-control" id="email" required
                                             aria-describedby="emailHelp">
                                         <div id="emailError" class="form-text myerror"></div>
                                     </div>
@@ -160,49 +176,93 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script src="script.js"></script>
 
 
 
 </body>
-
-
-
-
-
-
-
 <script>
-    // Include Files
     $(function () {
-        $("#head").load("header.html");
+        // $("#head").load("header.html");
         $("#accordionSidebar").load("sidebar.html");
 
         $("#logoutModal").load("logout.html");
 
     });
 </script>
+
+
+
+
+
+
+<script>
+    let userid = "";
+    let username = "";
+    let useremail = "";
+    let usergender = "";
+    let userstatus = "";
+
+
+
+
+    // var userid = "";
+    // var secret = "THESECRET";
+    // function decrypt(cipher) {
+    //     var decipher = CryptoJS.AES.decrypt(cipher, secret);
+    //     decipher = decipher.toString(CryptoJS.enc.Utf8);
+    //     return decipher;
+    // }
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    // var user_id = urlParams.get('userid');
+    userid =urlParams.get('userid');
+    console.log(userid);
+
+
+    $.ajax({
+
+        // url: "https://gorest.co.in/public/v1/users?page=" +i,
+        url: "https://gorest.co.in/public/v1/users/" + userid,
+        success: function (result) {
+
+            console.log(result.data);
+            userid = result.data.id;
+            username = result.data.name;
+            useremail = result.data.email;
+            usergender = result.data.gender;
+            userstatus = result.data.status;
+            console.log(username);
+
+            console.log(userid);
+            console.log(username);
+            document.getElementById("name").value = username;
+            document.getElementById("email").value = useremail;
+            document.getElementById("status").value = userstatus;
+
+            let checkedValue = $("input[type='radio'][name='gender']:checked").val();
+            if (checkedValue != usergender) {
+                document.getElementById("female").checked = true;
+            }
+
+
+        }
+    });
+
+
+
+
+
+
+
+    // Include Files
+
+</script>
+
 <script>
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-
- const userid = urlParams.get('userid');
- const username = urlParams.get('username');
- const useremail = urlParams.get('useremail');
- const usergender = urlParams.get('usergender');
- const userstatus = urlParams.get('userstatus');
-console.log(userid);
-console.log(username);
-
- document.getElementById("name").value =username ;
- document.getElementById("email").value = useremail;
- document.getElementById("status").value = userstatus;
-
- let checkedValue = $("input[type='radio'][name='gender']:checked").val();
- if(checkedValue != usergender)
-{
-    document.getElementById("female").checked = true;
-}
 
 
     const onValidateForm = () => {
@@ -212,7 +272,7 @@ console.log(username);
         //regex
         var regName = new RegExp("^([a-zA-Z ]{3,200})$");
         var regEmail = new RegExp("^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$");
-        
+
 
         //input fields
         let user_name = document.getElementById("name").value;
@@ -221,7 +281,7 @@ console.log(username);
         let user_status = document.getElementById("status").value;
 
         //error fields
-        let nameError = document.getElementById("nameError").value ="";
+        let nameError = document.getElementById("nameError").value = "";
         let emailError = document.getElementById("emailError").value = "";
         let statusError = document.getElementById("statusError").value = "";
 
@@ -233,7 +293,6 @@ console.log(username);
             flag = 1;
         }
         else {
-            console.log(user_name.length);
 
             if (user_name.length > 200) {
                 document.getElementById("nameError").innerHTML = "maximum 200 characters allowed";
@@ -258,10 +317,10 @@ console.log(username);
         else {
             if (regEmail.test(user_email)) {
                 document.getElementById("emailError").innerHTML = "";
-                } else {
-                    document.getElementById("emailError").innerHTML = "enter valid email";
-                    flag = 1;
-                }
+            } else {
+                document.getElementById("emailError").innerHTML = "enter valid email";
+                flag = 1;
+            }
         }
 
 
@@ -271,20 +330,20 @@ console.log(username);
             flag = 1;
         }
 
-        if(flag === 0)
-        {
-            updateUser(userid , user_name , user_email , user_gender , user_status);
+        if (flag === 0) {
+
+            updateUser(userid, user_name, user_email, user_gender, user_status);
         }
-        else{
+        else {
             alert("re enter values");
         }
-       
 
 
 
 
 
 
+        console.log(userid);
         console.log(user_name);
         console.log(user_email);
         console.log(user_gender);
@@ -292,5 +351,6 @@ console.log(username);
 
     }
 </script>
-<script src="script.js"></script>
+
+
 </html>
