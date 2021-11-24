@@ -1,6 +1,22 @@
-.myerror
+.fail
 {
     color: red;
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.success
+{
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    color: #4ed44e;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 .add_icon
 {
@@ -11,6 +27,7 @@
     text-align: center;
     border: 1px solid #4e73df;
     border-radius: 5px;
+    line-height: 1;
 }
 .add_icon i{
     color:#fff;

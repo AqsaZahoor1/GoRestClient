@@ -1,39 +1,28 @@
 
 const getUsers = () => {
 
-
     $.ajax({
 
-        url: "https://gorest.co.in/public/v1/users?page=4",
+        url: "https://gorest.co.in/public/v1/users",
         success: function (result) {
             displayUsers(result.data);
             console.log(result);
             console.log(result.meta.pagination.pages);
             console.log(result.meta.pagination.page);
-            
+
             $('#dataTable').DataTable({
                 "destroy": true,
-            //    "pagingType": "simple",
-            "pageLength": 50,
-            "drawCallback": function( settings ) {
-                alert( 'DataTables has redrawn the table' );
-            },
-
             });
-            
         }
     });
 
 }
 getUsers();
 
-
-
-
-
+//Display Users
 
 function displayUsers(usersArray) {
-    // $('#dataTable').DataTable();
+
 
     for (let i = 0; i < usersArray.length; i++) {
         user_record = '';
@@ -42,8 +31,7 @@ function displayUsers(usersArray) {
         user_record += '<td>' + usersArray[i].gender + '</td>';
         user_record += '<td>' + usersArray[i].status + '</td>';
         user_record += '<td><a  href="edit.html?userid=' + usersArray[i].id.toString() + '"><img src = "img/edit.png" style = "width:30px ; height: 30px"></a><a  href="javascript:void(0);" onclick="deleteUsers(' + usersArray[i].id + ')"><img src = "img/delete.png" style = "width:30px ; height: 30px"></a></td></tr>';
-        // user_record += '<td><a  href="edit.html?userarray='+usersArray[i]+' "><img src = "img/edit.png" style = "width:30px ; height: 30px"></a><a  href="javascript:void(0);" onclick="deleteUsers(' + usersArray[i].id + ')"><img src = "img/delete.png" style = "width:30px ; height: 30px"></a></td></tr>'; 
-        $("#dataTable").append(user_record);
+        $("#dataTableBody").append(user_record);
 
 
     }
@@ -52,7 +40,7 @@ function displayUsers(usersArray) {
 // Delete user
 
 const deleteUsers = (id) => {
-    alert(id);
+
     console.log(id);
     var token = "cb74b84591555045064bf32abcdfb53742ebb62de431f40a63e4b5b391a93ace";
     $.ajax({
@@ -63,21 +51,21 @@ const deleteUsers = (id) => {
             'Authorization': 'Bearer ' + token
         },
         success: function (result) {
-            getUsers();
-            // alert("User deleted successfully");
 
+            
+            $('#myElem').addClass('success');
+            document.getElementById("myElem").innerHTML = "User deleted Successfully";
+            console.log(result);   
+            changeText();
         },
         error: function (error) {
-            alert("error");
+            $('#myElem').addClass('fail');
+            document.getElementById("myElem").innerHTML = "Failed to delete user";
+            changeText();
             console.log(error);
         }
     });
 }
-
-
-
-
-
 
 // Add new user
 
@@ -98,13 +86,17 @@ const addUsers = (username, useremail, gender, status) => {
             status: status
         },
         success: function (result) {
+
+            $('#myElem').addClass('success');
+            document.getElementById("myElem").innerHTML = "User added Successfully";
             console.log(result);
-            alert("User added successfully");
-            window.location.href = "Users.html";
-            console.log(result);
+            changeText();
         },
         error: function (error) {
-            alert("add user error");
+
+            $('#myElem').addClass('fail');
+            document.getElementById("myElem").innerHTML = "Failed to add user";
+            changeText();
             console.log(error);
         }
     });
@@ -130,17 +122,31 @@ const updateUser = (userid, username, useremail, gender, status) => {
             status: status
         },
         success: function (result) {
-            alert("User updated successfully");
-            window.location.href = "Users.html";
+
+            $('#myElem').addClass('success');
+            document.getElementById("myElem").innerHTML = "User Updated Successfully";
             console.log(result);
+            changeText();
+
         },
         error: function (error) {
-            alert("Update user error");
+
+            $('#myElem').addClass('fail');
+            document.getElementById("myElem").innerHTML = "Failed to update user";
+            changeText();
             console.log(error);
         }
     });
 }
 
+function changeText() {
+
+    setTimeout(function () {
+        document.getElementById("myElem").innerHTML = "";
+        $('#myElem').removeClass('success');
+        $('#myElem').removeClass('fail');
+    }, 8000);
+}
 
 // var secret = "THESECRET";
 // const encrypt = (value) => {
